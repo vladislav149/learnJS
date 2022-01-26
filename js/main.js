@@ -1,25 +1,27 @@
 function calc(mathSymbol,a,b) {
-  if (a == '' || b == '' || a !== a || b !== b) {
+  const isValueNoValid = typeof(a) !== 'number' || typeof(b) !== 'number'
+
+  if (isValueNoValid) {
     return 'error';
   }
 
   switch (mathSymbol) {
-    case '+':
+    case 'sum':
       return a + b;
     
-    case '-':
+    case 'sub':
       return a - b;
 
-    case '*':
+    case 'mult':
       return a * b;
     
-    case '/':
+    case 'div':
       return a / b;
 
-    case '**':
+    case 'pow':
       return a ** b;
 
-    case '%':
+    case 'rem':
       return a % b;
     
     default:
@@ -27,7 +29,9 @@ function calc(mathSymbol,a,b) {
   }
 }
 
-let a = prompt('Введите a', '');
-let b = prompt('Введите b', '');
-let mathSymbol = prompt('Какое действие будем производить( + , - , * , / , ** , % )?', '');
-alert(calc(mathSymbol,+a,+b));
+console.log(calc('sum',12,13));
+console.log(calc('sum','text',13));
+console.log(calc('',3,13));
+console.log(calc('xz',3,13));
+console.log(calc('mult','',13));
+console.log(calc('mult',2,13));
