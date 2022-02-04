@@ -1,0 +1,90 @@
+const STATUS = {
+  TO_DO: 'To do',
+  IN_PROGRESS: 'In progress',
+  DONE: 'Done',
+}
+
+const DEFAULT_STATUS = STATUS.TO_DO;
+
+const PRIORITY = {
+  LOW: 'low',
+  HIGH: 'high',
+}
+
+const list = [{
+    name: 'create a post',
+    status: STATUS.IN_PROGRESS,
+    priority: PRIORITY.HIGH
+  },
+  {
+    name: 'jump on bed',
+    status: STATUS.DONE,
+    priority: PRIORITY.LOW
+  },
+  {
+    name: 'sleep at lunch',
+    status: STATUS.TO_DO,
+    priority: PRIORITY.HIGH
+  }
+];
+
+function addTask(name, priority) {
+  list.push({
+    name: name,
+    status: DEFAULT_STATUS,
+    priority: priority
+  })
+}
+
+function deleteTask(name) {
+  let findIndexTask = list.findIndex(task => task.name == name);
+  list.splice(findIndexTask, 1);
+}
+
+function changeStatus(name, status) {
+  let findIndexTask = list.findIndex(task => task.name == name);
+  list.splice(findIndexTask, 1, {
+    name: name,
+    status: status,
+    priority: list[findIndexTask].priority
+  });
+}
+
+function changePriority(name, priority) {
+  let findIndexTask = list.findIndex(task => task.name == name);
+  list.splice(findIndexTask, 1, {
+    name: name,
+    status: list[findIndexTask].status,
+    priority: priority
+  });
+}
+
+function showList(filter) {
+
+  for (let key in STATUS) {
+    console.log(STATUS[key] + ':');
+    let filtered = list.filter(task => task.status == STATUS[key])
+    if (filtered.length === 0) {
+      console.log('-');
+    } else {
+      console.log(filtered);
+    }
+  }
+  console.log(`\n`);
+  for (let key in PRIORITY) {
+    console.log(PRIORITY[key] + ':');
+    let filtered = list.filter(task => task.priority == PRIORITY[key])
+    if (filtered.length === 0) {
+      console.log('-');
+    } else {
+      console.log(filtered);
+    }
+  }
+}
+
+addTask('test', 'high');
+addTask('buy Tesla', 'high');
+deleteTask('jump on bed');
+changeStatus('sleep at lunch', 'Done');
+changePriority('test', 'low');
+showList('STATUS');
