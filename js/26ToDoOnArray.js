@@ -37,26 +37,18 @@ function addTask(name, priority) {
 }
 
 function deleteTask(name) {
-  let findIndexTask = list.findIndex(task => task.name == name);
+  let findIndexTask = list.findIndex(task => task.name === name);
   list.splice(findIndexTask, 1);
 }
 
 function changeStatus(name, status) {
-  let findIndexTask = list.findIndex(task => task.name == name);
-  list.splice(findIndexTask, 1, {
-    name: name,
-    status: status,
-    priority: list[findIndexTask].priority
-  });
+  let findIndexTask = list.findIndex(task => task.name === name);
+  list[findIndexTask].status = status;
 }
 
 function changePriority(name, priority) {
-  let findIndexTask = list.findIndex(task => task.name == name);
-  list.splice(findIndexTask, 1, {
-    name: name,
-    status: list[findIndexTask].status,
-    priority: priority
-  });
+  let findIndexTask = list.findIndex(task => task.name === name);
+  list[findIndexTask].priority = priority;
 }
 
 function showList(filter) {
@@ -71,23 +63,13 @@ function showList(filter) {
 
   for (let key in filter) {
     console.log(filter[key] + ':');
-    let filtered = list.filter(task => task[filterKey] == filter[key])
+    let filtered = list.filter(task => task[filterKey] === filter[key])
     if (filtered.length === 0) {
       console.log('-');
     } else {
       console.log(filtered);
     }
   }
-  //console.log(`\n`);
-  //for (let key in PRIORITY) {
-  //  console.log(PRIORITY[key] + ':');
-  //  let filtered = list.filter(task => task.priority == PRIORITY[key])
-  //  if (filtered.length === 0) {
-  //    console.log('-');
-  //  } else {
-  //    console.log(filtered);
-  //  }
-  //}
 }
 
 addTask('test', 'high');
