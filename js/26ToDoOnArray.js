@@ -60,31 +60,41 @@ function changePriority(name, priority) {
 }
 
 function showList(filter) {
+  let filterKey;
+  if (filter === 'status') {
+    filter = STATUS;
+    filterKey = 'status';
+  } else {
+    filter = PRIORITY
+    filterKey = 'priority'
+  }
 
-  for (let key in STATUS) {
-    console.log(STATUS[key] + ':');
-    let filtered = list.filter(task => task.status == STATUS[key])
+  for (let key in filter) {
+    console.log(filter[key] + ':');
+    let filtered = list.filter(task => task[filterKey] == filter[key])
     if (filtered.length === 0) {
       console.log('-');
     } else {
       console.log(filtered);
     }
   }
-  console.log(`\n`);
-  for (let key in PRIORITY) {
-    console.log(PRIORITY[key] + ':');
-    let filtered = list.filter(task => task.priority == PRIORITY[key])
-    if (filtered.length === 0) {
-      console.log('-');
-    } else {
-      console.log(filtered);
-    }
-  }
+  //console.log(`\n`);
+  //for (let key in PRIORITY) {
+  //  console.log(PRIORITY[key] + ':');
+  //  let filtered = list.filter(task => task.priority == PRIORITY[key])
+  //  if (filtered.length === 0) {
+  //    console.log('-');
+  //  } else {
+  //    console.log(filtered);
+  //  }
+  //}
 }
 
 addTask('test', 'high');
-addTask('buy Tesla', 'high');
+addTask('buy a Tesla', 'high');
 deleteTask('jump on bed');
 changeStatus('sleep at lunch', 'Done');
 changePriority('test', 'low');
-showList('STATUS');
+showList('status');
+console.log('\n');
+showList('priority');
