@@ -1,37 +1,64 @@
-function calc(mathSymbol,a,b) {
-  const isValueNoValid = typeof(a) !== 'number' || typeof(b) !== 'number'
+const buttonNum = document.querySelectorAll('.calc__btn--num');
+const buttonOperation = document.querySelectorAll('.calc__btn--operation');
+const buttonEquals = document.querySelector('.calc__btn--equals');
+const inputResult = document.querySelector('.calc__result');
+let a;
+let b;
+let c;
+let d;
 
-  if (isValueNoValid) {
-    return 'error';
-  }
+buttonNum.forEach(function (item) {
+  item.addEventListener("click", handler1)
+});
 
-  switch (mathSymbol) {
-    case 'sum':
-      return a + b;
-    
-    case 'sub':
-      return a - b;
+buttonOperation.forEach(function (item) {
+  item.addEventListener("click", handler2)
+});
 
-    case 'mult':
-      return a * b;
-    
-    case 'div':
-      return a / b;
+buttonEquals.addEventListener("click", handler3);
 
-    case 'pow':
-      return a ** b;
-
-    case 'rem':
-      return a % b;
-    
-    default:
-      return 'unknown operation';
+function handler1() {
+  let buttonNum = this.textContent;
+  if (!+inputResult.value) {
+    inputResult.value = buttonNum;
+  } else {
+    inputResult.value += buttonNum;
   }
 }
 
-console.log(calc('sum',12,13));
-console.log(calc('sum','text',13));
-console.log(calc('',3,13));
-console.log(calc('xz',3,13));
-console.log(calc('mult','',13));
-console.log(calc('mult',2,13));
+function handler2() {
+  a = inputResult.value;
+  console.log(a);
+  inputResult.value = this.textContent;
+  console.log(inputResult.value);
+
+  c = inputResult.value
+}
+
+function handler3() {
+  console.log(c);
+  b = inputResult.value;
+
+  switch (c) {
+    case '+':
+      d = +a + +b;
+      break;
+
+    case '–':
+      d = a - b;
+      break;
+
+    case '×':
+      d = a * b;
+      break;
+
+    case '÷':
+      d = a / b;
+      break;
+
+    default:
+      d = 'unknown operation ';
+  }
+
+  inputResult.value = d;
+}
