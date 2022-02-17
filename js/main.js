@@ -2,63 +2,108 @@ const buttonNum = document.querySelectorAll('.calc__btn--num');
 const buttonOperation = document.querySelectorAll('.calc__btn--operation');
 const buttonEquals = document.querySelector('.calc__btn--equals');
 const inputResult = document.querySelector('.calc__result');
-let a;
-let b;
+const buttonErase = document.querySelector('.calc__btn--erase');
+const buttonReset = document.querySelector('.calc__btn--reset');
+let arr = [];
+let a = [];
+let b = [];
 let c;
 let d;
+let operator;
+let result;
 
 buttonNum.forEach(function (item) {
-  item.addEventListener("click", handler1)
+  item.addEventListener("click", showNumber)
 });
 
 buttonOperation.forEach(function (item) {
-  item.addEventListener("click", handler2)
+  item.addEventListener("click", showOperation)
 });
 
-buttonEquals.addEventListener("click", handler3);
+buttonErase.addEventListener("click", inputErase);
 
-function handler1() {
-  let buttonNum = this.textContent;
-  if (!+inputResult.value) {
-    inputResult.value = buttonNum;
+buttonReset.addEventListener("click", inputReset);
+
+buttonEquals.addEventListener("click", showResult);
+
+function showNumber() {
+  arr.push(+this.textContent);
+  arrToString();
+}
+
+function showOperation() {
+  //arr = arr.join('');
+  if (typeof (arr[arr.length - 1]) === "number") {
+    arr.push(this.textContent);
+    arrToString();
   } else {
-    inputResult.value += buttonNum;
+    arr.pop();
+    arr.push(this.textContent);
+    arrToString();
+  }
+
+  console.log(arr);
+}
+
+function inputErase() {
+  arr.pop();
+  if (arr.length) {
+    let str = arr.join('');
+    inputResult.value = str;
+  } else {
+    inputResult.value = '0'
   }
 }
 
-function handler2() {
-  a = inputResult.value;
-  console.log(a);
-  inputResult.value = this.textContent;
-  console.log(inputResult.value);
-
-  c = inputResult.value
+function inputReset() {
+  arr = [];
 }
 
-function handler3() {
-  console.log(c);
-  b = inputResult.value;
+function arrToString() {
+  let str = arr.join('');
+  inputResult.value = str;
+}
 
-  switch (c) {
+function showResult() {
+  let operatorIndex = arr.findIndex(item => typeof (item) !== "number")
+  getFirstOperand(operatorIndex);
+  getSecondOperand(operatorIndex);
+  getOperator(operatorIndex);
+  switch (operator) {
     case '+':
-      d = +a + +b;
+      result = c + d;
       break;
 
     case '–':
-      d = a - b;
+      result = c - d;
       break;
 
     case '×':
-      d = a * b;
+      result = c * d;
       break;
 
     case '÷':
-      d = a / b;
+      result = c / d;
       break;
 
     default:
-      d = 'unknown operation ';
-  }
+  };
+  inputResult.value = result;
+  let abc = String(result);
+  arr = abc.split('');
+  arr = arr.map(item => +item)
+}
 
-  inputResult.value = d;
+function getFirstOperand(operatorIndex) {
+  a = arr.slice(0, operatorIndex);
+  c = a.join('');
+}
+
+function getSecondOperand(operatorIndex) {
+  b = arr.slice(operatorIndex - arr.length + 1);
+  d = b.join('');
+}
+
+function getOperator(operatorIndex) {
+  operator = arr[operatorIndex];
 }

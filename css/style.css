@@ -74,10 +74,12 @@ body {
   background-color: #787878;
 }
 
-.calc__btn--operation {
+.calc__btn--operation,
+.calc__btn--equals {
   background-color: #4B5EFC;
 }
 
-.calc__btn--operation:hover {
+.calc__btn--operation:hover,
+.calc__btn--equals:hover {
   background-color: #8893f1;
 }
