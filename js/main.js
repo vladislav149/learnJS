@@ -36,13 +36,23 @@ function showNumber() {
 }
 
 function showOperation() {
-  if (typeof (arr[arr.length - 1]) === "number") {
+  let arrCopy = arr.slice(0);
+  arrCopy.push(this.textContent)
+  let arrOperation = arrCopy.filter(item => {
+    if (typeof (item) === "string") {
+      return true
+    }
+  });
+
+  if ((typeof (arr[arr.length - 1]) === "number") && (arrOperation.length <= 1)) {
+    arr.push(this.textContent);
+    arrToString();
+  } else if ((typeof (arr[arr.length - 1]) !== "number") && (arr.length > 0)) {
+    arr.pop();
     arr.push(this.textContent);
     arrToString();
   } else {
-    arr.pop();
-    arr.push(this.textContent);
-    arrToString(); //тут (1)
+    return
   }
 }
 
@@ -60,16 +70,17 @@ function inputReset() {
   arr = [];
 }
 
-function arrToString() { //и тут (1)
+function arrToString() {
   let str = arr.join('');
   inputResult.value = str;
 }
 
 function showResult() {
   let operatorIndex = arr.findIndex(item => typeof (item) !== "number")
-  getFirstOperand(operatorIndex); //тут (2)
-  getSecondOperand(operatorIndex); //тут (2)
-  getOperator(operatorIndex); //тут (2)
+  getFirstOperand(operatorIndex);
+  getSecondOperand(operatorIndex);
+  getOperator(operatorIndex);
+
   if (c === '' || +d !== +d) {
     return
   } else {
@@ -93,22 +104,21 @@ function showResult() {
       default:
     };
     inputResult.value = result;
-    let abc = String(result);
-    arr = abc.split('');
-    arr = arr.map(item => +item)
+    arr = [];
+    arr[0] = result;
   }
 }
 
-function getFirstOperand(operatorIndex) { //и тут (2)
+function getFirstOperand(operatorIndex) {
   a = arr.slice(0, operatorIndex);
   c = a.join('');
 }
 
-function getSecondOperand(operatorIndex) { //и тут (2)
+function getSecondOperand(operatorIndex) {
   b = arr.slice(operatorIndex - arr.length + 1);
   d = b.join('');
 }
 
-function getOperator(operatorIndex) { //и тут (2)
+function getOperator(operatorIndex) {
   operator = arr[operatorIndex];
 }
