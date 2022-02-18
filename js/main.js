@@ -27,22 +27,23 @@ buttonReset.addEventListener("click", inputReset);
 buttonEquals.addEventListener("click", showResult);
 
 function showNumber() {
-  arr.push(+this.textContent);
-  arrToString();
+  if (this.textContent === '0' && arr.length === 0 || this.textContent === '0' && typeof (arr[arr.length - 1]) !== "number") {
+    return
+  } else {
+    arr.push(+this.textContent);
+    arrToString();
+  }
 }
 
 function showOperation() {
-  //arr = arr.join('');
   if (typeof (arr[arr.length - 1]) === "number") {
     arr.push(this.textContent);
     arrToString();
   } else {
     arr.pop();
     arr.push(this.textContent);
-    arrToString();
+    arrToString(); //тут (1)
   }
-
-  console.log(arr);
 }
 
 function inputErase() {
@@ -59,51 +60,55 @@ function inputReset() {
   arr = [];
 }
 
-function arrToString() {
+function arrToString() { //и тут (1)
   let str = arr.join('');
   inputResult.value = str;
 }
 
 function showResult() {
   let operatorIndex = arr.findIndex(item => typeof (item) !== "number")
-  getFirstOperand(operatorIndex);
-  getSecondOperand(operatorIndex);
-  getOperator(operatorIndex);
-  switch (operator) {
-    case '+':
-      result = c + d;
-      break;
+  getFirstOperand(operatorIndex); //тут (2)
+  getSecondOperand(operatorIndex); //тут (2)
+  getOperator(operatorIndex); //тут (2)
+  if (c === '' || +d !== +d) {
+    return
+  } else {
+    switch (operator) {
+      case '+':
+        result = +c + +d;
+        break;
 
-    case '–':
-      result = c - d;
-      break;
+      case '–':
+        result = c - d;
+        break;
 
-    case '×':
-      result = c * d;
-      break;
+      case '×':
+        result = c * d;
+        break;
 
-    case '÷':
-      result = c / d;
-      break;
+      case '÷':
+        result = c / d;
+        break;
 
-    default:
-  };
-  inputResult.value = result;
-  let abc = String(result);
-  arr = abc.split('');
-  arr = arr.map(item => +item)
+      default:
+    };
+    inputResult.value = result;
+    let abc = String(result);
+    arr = abc.split('');
+    arr = arr.map(item => +item)
+  }
 }
 
-function getFirstOperand(operatorIndex) {
+function getFirstOperand(operatorIndex) { //и тут (2)
   a = arr.slice(0, operatorIndex);
   c = a.join('');
 }
 
-function getSecondOperand(operatorIndex) {
+function getSecondOperand(operatorIndex) { //и тут (2)
   b = arr.slice(operatorIndex - arr.length + 1);
   d = b.join('');
 }
 
-function getOperator(operatorIndex) {
+function getOperator(operatorIndex) { //и тут (2)
   operator = arr[operatorIndex];
 }
