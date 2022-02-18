@@ -5,10 +5,10 @@ const inputResult = document.querySelector('.calc__result');
 const buttonErase = document.querySelector('.calc__btn--erase');
 const buttonReset = document.querySelector('.calc__btn--reset');
 let arr = [];
-let a = [];
-let b = [];
-let c;
-let d;
+let arrFirstOperand = [];
+let arrSecondOperand = [];
+let firstOperand;
+let secondOperand;
 let operator;
 let result;
 
@@ -57,6 +57,18 @@ function showOperation() {
 }
 
 function inputErase() {
+  //  console.log(arr);
+  //  console.log(arr.length);
+  //  if (arr.length === 1) {
+  //    let qwe = arr.join('');
+  //    console.log(typeof (qwe));
+  //    console.log(qwe);
+  //    let qwer = qwe.slice(0, -1);
+  //    console.log(qwer);
+  //    arr[0] = +qwer;
+  //    let str = arr.join('');
+  //    inputResult.value = str;
+  //  } else {
   arr.pop();
   if (arr.length) {
     let str = arr.join('');
@@ -64,6 +76,7 @@ function inputErase() {
   } else {
     inputResult.value = '0'
   }
+  //  }
 }
 
 function inputReset() {
@@ -81,24 +94,24 @@ function showResult() {
   getSecondOperand(operatorIndex);
   getOperator(operatorIndex);
 
-  if (c === '' || +d !== +d) {
+  if (firstOperand === '' || +secondOperand !== +secondOperand) {
     return
   } else {
     switch (operator) {
       case '+':
-        result = +c + +d;
+        result = +firstOperand + +secondOperand;
         break;
 
       case '–':
-        result = c - d;
+        result = firstOperand - secondOperand;
         break;
 
       case '×':
-        result = c * d;
+        result = firstOperand * secondOperand;
         break;
 
       case '÷':
-        result = c / d;
+        result = firstOperand / secondOperand;
         break;
 
       default:
@@ -110,13 +123,13 @@ function showResult() {
 }
 
 function getFirstOperand(operatorIndex) {
-  a = arr.slice(0, operatorIndex);
-  c = a.join('');
+  arrFirstOperand = arr.slice(0, operatorIndex);
+  firstOperand = arrFirstOperand.join('');
 }
 
 function getSecondOperand(operatorIndex) {
-  b = arr.slice(operatorIndex - arr.length + 1);
-  d = b.join('');
+  arrSecondOperand = arr.slice(operatorIndex - arr.length + 1);
+  secondOperand = arrSecondOperand.join('');
 }
 
 function getOperator(operatorIndex) {
