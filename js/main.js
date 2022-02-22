@@ -1,9 +1,26 @@
-const buttonNum = document.querySelectorAll('.calc__btn--num');
-const buttonOperation = document.querySelectorAll('.calc__btn--operation');
-const buttonEquals = document.querySelector('.calc__btn--equals');
-const inputResult = document.querySelector('.calc__result');
-const buttonErase = document.querySelector('.calc__btn--erase');
-const buttonReset = document.querySelector('.calc__btn--reset');
+import {
+  buttonNum,
+  buttonOperation,
+  buttonEquals,
+  inputResult,
+  buttonErase,
+  buttonReset
+} from './view.js';
+//import {
+//  buttonOperation
+//} from '/view.js';
+//import {
+//  buttonEquals
+//} from '/view.js';
+//import {
+//  inputResult
+//} from '/view.js';
+//import {
+//  buttonErase
+//} from '/view.js';
+//import {
+//  buttonReset
+//} from '/view.js';
 let arr = [];
 let arrFirstOperand = [];
 let arrSecondOperand = [];
